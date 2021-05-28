@@ -11,6 +11,23 @@
     <main>
         <div class="field"></div>
     </main>
+    <form action="javascript:game.processForm()" method="GET" id="form">
+        <h3>Player 1 goes first</h3>
+        <div>
+            <h2>X</h2>
+            <label for="name1">Player 1 Name:</label>
+            <input type="text" name="name1" id="name1" value="Player 1" required>
+            <input type="hidden" name="X" value="X">
+            
+        </div>
+        <div>
+            <h2>O</h2>
+            <label for="name2">Player 2 Name:</label>
+            <input type="text" name="name2" id="name2" value="Player 2" required>
+            <input type="hidden" name="O" value="O">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 <script src="script.js"></script>
 </html>
