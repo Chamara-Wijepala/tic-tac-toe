@@ -6,7 +6,7 @@ const playerFactory = (name, symbol) => {
 };
 
 const gameBoard = (() => {
-    let _board = ['X', 'X', 'O', 'O', 'X', 'X', 'O', 'O', 'X'];
+    let _board = ['', '', '', '', '', '', '', '', ''];
 
     const createField = () => {
         for (i = 0; i < _board.length; i++) {
@@ -17,8 +17,8 @@ const gameBoard = (() => {
         };
     };
 
-    const setField = (symbol) => {
-
+    const setField = (symbol, id) => {
+        
     };
 
     return {
@@ -41,9 +41,44 @@ const game = (() => {
             player2,
         };
     };
-    //document.querySelector('.field').addEventListener('click', add function that calls setfield and passes it player's symbol)
+
+    let currentPlayer = processForm().player1.symbol;
+
+    const getButtonData = (e) => {
+        let buttonText = e.target.innerText;
+        let buttonId = e.target.dataset.ID;
+
+        return {
+            buttonText,
+            buttonId,
+        };
+    };
+
+    const switchPlayer = () => {
+        if (currentPlayer === 'X') {
+            currentPlayer = processForm().player2.symbol;
+        }
+        else {
+            currentPlayer = processForm().player1.symbol;
+        };
+    };
+
+    const buttonClick = (e) => {
+        let {buttonText, buttonId} = getButtonData(e);
+
+        if (buttonText === '') {
+            gameBoard.setField(currentPlayer, buttonId);
+        }
+        else {
+            console.log('Choose an empty space.')
+        };
+
+        switchPlayer();
+    };
+
+    document.querySelector('.field').addEventListener('click', buttonClick);
 
     return {
-        processForm,
+
     };
 })();
