@@ -7,18 +7,29 @@ const playerFactory = (name, symbol) => {
 
 const gameBoard = (() => {
     let _board = ['', '', '', '', '', '', '', '', ''];
+    let _field = document.querySelector('.field');
 
     const createField = () => {
         for (i = 0; i < _board.length; i++) {
-            let square = document.querySelector('.field').appendChild(document.createElement('button'));
+            let square = _field.appendChild(document.createElement('button'));
             square.className = 'square';
             square.innerText = _board[i];
             square.dataset.ID = i;
         };
     };
 
+    const removeField = () => {
+        for (i = 0; i < _board.length; i++) {
+            _field.removeChild(_field.childNodes[0]);
+        };
+    };
+
     const setField = (symbol, id) => {
-        
+        removeField();
+
+        _board[id] = symbol;
+
+        createField();
     };
 
     return {
@@ -71,6 +82,7 @@ const game = (() => {
         }
         else {
             console.log('Choose an empty space.')
+            return;
         };
 
         switchPlayer();
