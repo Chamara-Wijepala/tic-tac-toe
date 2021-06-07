@@ -32,9 +32,26 @@ const gameBoard = (() => {
         createField();
     };
 
+    const getBoardCopy = () => {
+        return [] = _board;
+    };
+
+    const rows = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ]
+
     return {
         createField,
         setField,
+        getBoardCopy,
+        rows,
     };
 })();
 
@@ -74,11 +91,24 @@ const game = (() => {
         };
     };
 
+    const checkWinner = () => {
+        return gameBoard.rows.some(combination => {
+            return combination.every(index => {
+                return gameBoard.getBoardCopy()[index] === currentPlayer;
+            });
+        });
+    };
+
+    const gameOver = () => {
+        (console.log(checkWinner()));
+    };
+
     const buttonClick = (e) => {
         let {buttonText, buttonId} = getButtonData(e);
 
         if (buttonText === '') {
             gameBoard.setField(currentPlayer, buttonId);
+            gameOver();
         }
         else {
             console.log('Choose an empty space.')
