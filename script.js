@@ -45,13 +45,30 @@ const gameBoard = (() => {
         [2, 5, 8],
         [0, 4, 8],
         [2, 4, 6],
-    ]
+    ];
 
     return {
         createField,
         setField,
         getBoardCopy,
         rows,
+    };
+})();
+
+const displayController = (() => {
+    const display = document.getElementById('end-message');
+
+    const declareWinner = (winner) => {
+        display.innerText = winner + ' wins.'
+    };
+
+    const declareTie = () => {
+        display.innerText = 'It\' a tie.'
+    }
+
+    return {
+        declareWinner,
+        declareTie,
     };
 })();
 
@@ -70,7 +87,7 @@ const game = (() => {
         };
     };
 
-    let currentPlayer = processForm().player1.symbol;
+    let currentPlayer = processForm().player1;
 
     const getButtonData = (e) => {
         let buttonText = e.target.innerText;
@@ -83,18 +100,18 @@ const game = (() => {
     };
 
     const switchPlayer = () => {
-        if (currentPlayer === 'X') {
-            currentPlayer = processForm().player2.symbol;
+        if (currentPlayer.symbol === 'X') {
+            currentPlayer = processForm().player2;
         }
         else {
-            currentPlayer = processForm().player1.symbol;
+            currentPlayer = processForm().player1;
         };
     };
 
     const checkWinner = () => {
         return gameBoard.rows.some(combination => {
             return combination.every(index => {
-                return gameBoard.getBoardCopy()[index] === currentPlayer;
+                return gameBoard.getBoardCopy()[index] === currentPlayer.symbol;
             });
         });
     };
@@ -107,22 +124,21 @@ const game = (() => {
 
     const gameOver = () => {
         if (checkWinner()) {
-            console.log(currentPlayer + ' wins')
+            displayController.declareWinner(currentPlayer.name);
         }
         else if (!checkWinner() && checkTie()) {
-            console.log('It\'s a tie')
-        }
+            displayController.declareTie();
+        };
     };
 
     const buttonClick = (e) => {
         let {buttonText, buttonId} = getButtonData(e);
 
         if (buttonText === '') {
-            gameBoard.setField(currentPlayer, buttonId);
+            gameBoard.setField(currentPlayer.symbol, buttonId);
             gameOver();
         }
         else {
-            console.log('Choose an empty space.')
             return;
         };
 
@@ -130,8 +146,4 @@ const game = (() => {
     };
 
     document.querySelector('.field').addEventListener('click', buttonClick);
-
-    return {
-
-    };
 })();
