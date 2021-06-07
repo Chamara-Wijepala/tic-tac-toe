@@ -99,8 +99,19 @@ const game = (() => {
         });
     };
 
+    const checkTie = () => {
+        return gameBoard.getBoardCopy().every(element => {
+            return element !== '';
+        })
+    };
+
     const gameOver = () => {
-        (console.log(checkWinner()));
+        if (checkWinner()) {
+            console.log(currentPlayer + ' wins')
+        }
+        else if (!checkWinner() && checkTie()) {
+            console.log('It\'s a tie')
+        }
     };
 
     const buttonClick = (e) => {
