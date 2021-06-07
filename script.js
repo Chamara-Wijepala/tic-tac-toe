@@ -32,6 +32,12 @@ const gameBoard = (() => {
         createField();
     };
 
+    const resetBoard = () => {
+        _board = ['', '', '', '', '', '', '', '', ''];
+        removeField();
+        createField();
+    };
+
     const getBoardCopy = () => {
         return [] = _board;
     };
@@ -50,6 +56,7 @@ const gameBoard = (() => {
     return {
         createField,
         setField,
+        resetBoard,
         getBoardCopy,
         rows,
     };
@@ -131,6 +138,11 @@ const game = (() => {
         };
     };
 
+    const resetGame = () => {
+        gameBoard.resetBoard();
+        currentPlayer = processForm().player1;
+    };
+
     const buttonClick = (e) => {
         let {buttonText, buttonId} = getButtonData(e);
 
@@ -146,4 +158,6 @@ const game = (() => {
     };
 
     document.querySelector('.field').addEventListener('click', buttonClick);
+    //document.getElementById('restart')
+    document.getElementById('reset').addEventListener('click', resetGame);
 })();
