@@ -138,6 +138,10 @@ const game = (() => {
         };
     };
 
+    const reloadGame = () => {
+        location.reload();
+    };
+
     const resetGame = () => {
         gameBoard.resetBoard();
         currentPlayer = processForm().player1;
@@ -158,6 +162,6 @@ const game = (() => {
     };
 
     document.querySelector('.field').addEventListener('click', buttonClick);
-    //document.getElementById('restart')
+    document.getElementById('restart').addEventListener('click', reloadGame);
     document.getElementById('reset').addEventListener('click', resetGame);
 })();
