@@ -66,16 +66,36 @@ const displayController = (() => {
     const display = document.getElementById('end-message');
 
     const declareWinner = (winner) => {
-        display.innerText = winner + ' wins.'
+        display.innerText = winner + ' wins'
     };
 
     const declareTie = () => {
-        display.innerText = 'It\' a tie.'
+        display.innerText = 'It\'s a tie'
     }
+
+    const openForm = () => {
+        document.getElementById('form-div').style.display = 'block';
+    };
+
+    const closeForm = () => {
+        document.getElementById('form-div').style.display = 'none';
+    };
+
+    const openOverlay = () => {
+        document.querySelector('.overlay').style.height = '100%';
+    };
+
+    const closeOverlay = () => {
+        document.querySelector('.overlay').style.height = '0%';
+    };
 
     return {
         declareWinner,
         declareTie,
+        openForm,
+        closeForm,
+        openOverlay,
+        closeOverlay,
     };
 })();
 
@@ -132,9 +152,11 @@ const game = (() => {
     const gameOver = () => {
         if (checkWinner()) {
             displayController.declareWinner(currentPlayer.name);
+            displayController.openOverlay();
         }
         else if (!checkWinner() && checkTie()) {
             displayController.declareTie();
+            displayController.openOverlay();
         };
     };
 
@@ -145,6 +167,7 @@ const game = (() => {
     const resetGame = () => {
         gameBoard.resetBoard();
         currentPlayer = processForm().player1;
+        displayController.closeOverlay();
     };
 
     const buttonClick = (e) => {
