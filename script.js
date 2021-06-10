@@ -187,4 +187,8 @@ const game = (() => {
     document.querySelector('.field').addEventListener('click', buttonClick);
     document.getElementById('restart').addEventListener('click', reloadGame);
     document.getElementById('reset').addEventListener('click', resetGame);
+
+    return {
+        processForm,
+    }
 })();
