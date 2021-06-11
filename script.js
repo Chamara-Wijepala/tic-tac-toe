@@ -1,7 +1,8 @@
-const playerFactory = (name, symbol) => {
+const playerFactory = (name, symbol, score) => {
     return {
         name,
         symbol,
+        score,
     };
 };
 
@@ -64,6 +65,27 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     const display = document.getElementById('end-message');
+    const player1Score = document.getElementById('player1-score');
+    const player2Score = document.getElementById('player2-score');
+
+    const displayName = (name1, name2) => {
+        document.getElementById('player1-heading').innerText = name1 + '\'s score';
+        document.getElementById('player2-heading').innerText = name2 + '\'s score';
+    };
+
+    const displayScore = (score1, score2) => {
+        player1Score.innerText = score1;
+        player2Score.innerText = score2;
+    };
+
+    const updateScore = (currentPlayer) => {
+        if (currentPlayer.symbol === 'X') {
+            player1Score.innerText = currentPlayer.score;
+        }
+        else {
+            player2Score.innerText = currentPlayer.score;
+        };
+    };
 
     const declareWinner = (winner) => {
         display.innerText = winner + ' wins'
@@ -90,6 +112,9 @@ const displayController = (() => {
     };
 
     return {
+        displayName,
+        displayScore,
+        updateScore,
         declareWinner,
         declareTie,
         openForm,
@@ -100,21 +125,22 @@ const displayController = (() => {
 })();
 
 const game = (() => {
-    gameBoard.createField();
-
     const processForm = () => {
         const formData = document.getElementById('form')
 
-        const player1 = playerFactory(formData[0].value, formData[1].value);
-        const player2 = playerFactory(formData[2].value, formData[3].value);
+        const player1 = playerFactory(formData[0].value, formData[1].value, 0);
+        const player2 = playerFactory(formData[2].value, formData[3].value, 0);
 
+        displayController.displayName(player1.name, player2.name);
         return {
             player1,
             player2,
         };
     };
 
-    let currentPlayer = processForm().player1;
+    const player1 = processForm().player1;
+    const player2 = processForm().player2;
+    let currentPlayer = player1;
 
     const getButtonData = (e) => {
         let buttonText = e.target.innerText;
@@ -128,10 +154,10 @@ const game = (() => {
 
     const switchPlayer = () => {
         if (currentPlayer.symbol === 'X') {
-            currentPlayer = processForm().player2;
+            currentPlayer = player2;
         }
         else {
-            currentPlayer = processForm().player1;
+            currentPlayer = player1;
         };
     };
 
@@ -151,6 +177,8 @@ const game = (() => {
 
     const gameOver = () => {
         if (checkWinner()) {
+            currentPlayer.score += 1;
+            displayController.updateScore(currentPlayer);
             displayController.declareWinner(currentPlayer.name);
             displayController.openOverlay();
         }
@@ -187,6 +215,9 @@ const game = (() => {
     document.querySelector('.field').addEventListener('click', buttonClick);
     document.getElementById('restart').addEventListener('click', reloadGame);
     document.getElementById('reset').addEventListener('click', resetGame);
+
+    gameBoard.createField();
+    displayController.displayScore(player1.score, player2.score);
 
     return {
         processForm,

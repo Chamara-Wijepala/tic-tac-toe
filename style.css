@@ -5,6 +5,16 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+main {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 form {
     position: relative;
     width: 750px;
@@ -58,6 +68,14 @@ input {
     border-radius: 5px;
 }
 
+#player1-div {
+    float: left;
+}
+
+#player2-div {
+    float: right;
+}
+
 #form-div {
     height: 100%;
     width: 100%;
@@ -67,6 +85,26 @@ input {
     top: 0;
     background-color: rgb(0,0,0, 0.5);
     overflow-x: hidden;
+}
+
+.player-score {
+    height: 150px;
+    width: 200px;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+    justify-self: center;
+}
+
+.player-score-heading {
+    padding: 8px;
+    font-size: 20px;
+}
+
+.score {
+    margin: 25px;
+    font-size: 50px;
 }
 
 .overlay {

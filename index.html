@@ -9,7 +9,15 @@
 </head>
 <body>
     <main>
+        <div class="player-score" id="player1-div">
+            <p class="player-score-heading" id="player1-heading"></p>
+            <p class="score" id="player1-score"></p>
+        </div>
         <div class="field"></div>
+        <div class="player-score" id="player2-div">
+            <p class="player-score-heading" id="player2-heading"></p>
+            <p class="score" id="player2-score"></p>
+        </div>
     </main>
     <div id="form-div">
         <div class="overlay-content">
@@ -18,13 +26,13 @@
                 <div id="x">
                     <h2>X</h2>
                     <label for="name1">Player 1 Name</label><br>
-                    <input type="text" name="name1" id="name1" value="Player 1" required>
+                    <input type="text" name="name1" id="name1" value="Player 1" maxlength="12" required>
                     <input type="hidden" name="X" value="X">
                 </div>
                 <div id="o">
                     <h2>O</h2>
                     <label for="name2">Player 2 Name</label><br>
-                    <input type="text" name="name2" id="name2" value="Player 2" required>
+                    <input type="text" name="name2" id="name2" value="Player 2" maxlength="12" required>
                     <input type="hidden" name="O" value="O">
                 </div>
                 <button type="submit" onclick="displayController.closeForm()">Start</button>
